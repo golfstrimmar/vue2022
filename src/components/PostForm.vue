@@ -1,7 +1,7 @@
 <template>
   <form class="form-posts" @submit.prevent>
-    <CommonInput placeholder="post title" v-model="post.title" />
-    <CommonInput placeholder="post description" v-model="post.description" />
+    <CommonInput placeholder="post title" v-model.trim="post.title" />
+    <CommonInput placeholder="post description" v-model.trim="post.description" />
     <SussessButton @click="createPost">add post</SussessButton>
   </form>
 </template>

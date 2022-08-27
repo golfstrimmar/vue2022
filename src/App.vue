@@ -6,7 +6,9 @@
   <router-view />
 
   <div class="container">
-    <h1>app</h1>
+    <h1>posts page</h1>
+
+    <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
     <!-- <div class="buttons">
       <button @click="addLike" class="btn btn--success btn-app">like</button>
       <button @click="adddisLike" class="btn btn--success btn-app">dislike</button>
@@ -15,8 +17,10 @@
       <p>likes: <strong>{{ likes }}</strong></p>
       <p>dislikes: <strong>{{ dislikes }}</strong></p>
     </div> -->
+    <CommonDialog v-model:show="dialogVisible">
+      <PostForm @create="createPost"></PostForm>
+    </CommonDialog>
 
-    <PostForm @create="createPost"></PostForm>
     <PostList :posts="posts" @remove="RemovePost"></PostList>
 
   </div>
@@ -45,15 +49,20 @@ export default {
         { id: 2, title: 'post2 title', description: 'post2 descr' },
         { id: 3, title: 'post3 title', description: 'post3 descr' },
       ],
+      dialogVisible: false
     }
   },
 
   methods: {
     createPost(post) {
-      this.posts.push(post)
+      this.posts.push(post);
+      this.dialogVisible = false
     },
     RemovePost(post){
       this.posts = this.posts.filter(p => p.id !== post.id)
+    },
+    showDialog(){
+      this.dialogVisible = true
     }
 
     }
@@ -82,7 +91,9 @@ h1 {
   }
 }
 
-
+.dialog-open-button{
+  margin: 20px 0 0 0;
+}
 
 
 
