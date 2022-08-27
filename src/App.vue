@@ -7,17 +7,14 @@
 
   <div class="container">
     <h1>posts page</h1>
-    <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton>
-
-    <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
-    <!-- <div class="buttons">
-      <button @click="addLike" class="btn btn--success btn-app">like</button>
-      <button @click="adddisLike" class="btn btn--success btn-app">dislike</button>
+    <!-- <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton> -->
+    <div class="block-buttons">
+      <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
+      <CommonSelect v-model="selectedSort" :options="sortOptions"></CommonSelect>
     </div>
-    <div class="buttons">
-      <p>likes: <strong>{{ likes }}</strong></p>
-      <p>dislikes: <strong>{{ dislikes }}</strong></p>
-    </div> -->
+
+
+
     <CommonDialog v-model:show="dialogVisible">
       <PostForm @create="createPost"></PostForm>
     </CommonDialog>
@@ -44,10 +41,13 @@ export default {
   },
   data() {
     return {
-      posts: [
-      
-      ],
-      dialogVisible: false
+      posts: [],
+      dialogVisible: false,
+      selectedSort:'',
+      sortOptions: [
+        {value: 'title', name: 'for name'},
+        {value: 'body', name: 'for description'}
+      ]
     }
   },
 
@@ -71,6 +71,9 @@ export default {
       }
     }
 
+  },
+  mounted(){
+    this.fetchPosts()
   }
 
 
@@ -80,6 +83,10 @@ export default {
 
 
 <style lang="scss">
+.block-buttons{
+  display: flex;
+  justify-content: space-between;
+}
 h1 {
   font-size: 40px;
   text-transform: uppercase;
