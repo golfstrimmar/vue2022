@@ -1,3 +1,4 @@
 import SussessButton from "./SussessButton.vue";
+import CommonInput from "./CommonInput.vue";
 
-export default [SussessButton];
+export default [SussessButton, CommonInput];

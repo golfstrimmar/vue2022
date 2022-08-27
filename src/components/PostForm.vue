@@ -1,8 +1,8 @@
 <template>
   <form class="form-posts" @submit.prevent>
-    <input type="text" placeholder="post title" v-model="post.title" />
-    <input type="text" placeholder="post description" v-model="post.description" />
-    <SussessButton>add post</SussessButton>
+    <CommonInput placeholder="post title" v-model="post.title" />
+    <CommonInput placeholder="post description" v-model="post.description" />
+    <SussessButton @click="createPost">add post</SussessButton>
   </form>
 </template>
 
@@ -39,9 +39,6 @@ export default {
   grid-template-columns: repeat(2, max-content);
   gap: 10px;
 
-  input {
-    border: 1px solid grey !important;
-    padding: 5px !important;
-  }
+ 
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button type=" submit" class="btn btn--success " @click="createPost"><slot></slot></button>
+  <button type=" submit" class="btn btn--success " ><slot></slot></button>
 </template>
 
 <script>

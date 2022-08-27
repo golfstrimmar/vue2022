@@ -2,7 +2,7 @@
   <div class="post">
     <h3 class="post__title">name: {{ post.title }}</h3>
     <p class="post__description">description: {{ post.description }}</p>
-    <SussessButton>
+    <SussessButton class="post__button">
     <Cross/>
     </SussessButton>
   </div>
@@ -26,13 +26,14 @@ export default {
 
 
 
+
 .post {
   border: 1px solid rgb(117, 12, 179);
   border-radius: 3px;
   padding: 5px;
   position: relative;
 }
-button {
+.post__button {
     position: absolute;
     right: 15px;
     top: 50%;
