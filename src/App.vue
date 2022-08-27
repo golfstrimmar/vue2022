@@ -17,7 +17,7 @@
     </div> -->
 
     <PostForm @create="createPost"></PostForm>
-    <PostList :posts="posts"></PostList>
+    <PostList :posts="posts" @remove="RemovePost"></PostList>
 
   </div>
 
@@ -51,7 +51,11 @@ export default {
   methods: {
     createPost(post) {
       this.posts.push(post)
+    },
+    RemovePost(post){
+      this.posts = this.posts.filter(p => p.id !== post.id)
     }
+
     }
 
 

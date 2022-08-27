@@ -2,7 +2,10 @@
   <div class="post">
     <h3 class="post__title">name: {{ post.title }}</h3>
     <p class="post__description">description: {{ post.description }}</p>
-    <SussessButton class="post__button">
+    <SussessButton 
+    class="post__button"
+    @click="$emit('remove', post)"
+    >
     <Cross/>
     </SussessButton>
   </div>
