@@ -7,34 +7,18 @@
 
   <div class="container">
     <h1>app</h1>
-    <div class="buttons">
+    <!-- <div class="buttons">
       <button @click="addLike" class="btn btn--success btn-app">like</button>
       <button @click="adddisLike" class="btn btn--success btn-app">dislike</button>
     </div>
     <div class="buttons">
       <p>likes: <strong>{{ likes }}</strong></p>
       <p>dislikes: <strong>{{ dislikes }}</strong></p>
-    </div>
+    </div> -->
 
+    <PostForm @create="createPost"></PostForm>
+    <PostList :posts="posts"></PostList>
 
-    <div class="posts">
-      <div class="post">
-        <p class="post__description">name:  js</p>
-        <p class="post__description">description: about js</p>
-      </div>
-      <div class="post">
-        <p class="post__description">name:  js</p>
-        <p class="post__description">description: about js</p>
-      </div>
-      <div class="post">
-        <p class="post__description">name:  js</p>
-        <p class="post__description">description: about js</p>
-      </div>
-      <div class="post">
-        <p class="post__description">name:  js</p>
-        <p class="post__description">description: about js</p>
-      </div>
-    </div>
   </div>
 
 
@@ -44,28 +28,35 @@
 
 
 <script>
+
+import PostForm from "@/components/PostForm.vue";
+import PostList from "@/components/PostList.vue";
+
+
 export default {
+  components:{
+    PostForm, PostList
+  },
   data() {
     return {
-      likes: 0,
-      dislikes: 0,
+      posts: [
+        { id: 0, title: 'post0 title', description: 'post0 descr' },
+        { id: 1, title: 'post1 title', description: 'post1 descr' },
+        { id: 2, title: 'post2 title', description: 'post2 descr' },
+        { id: 3, title: 'post3 title', description: 'post3 descr' },
+      ],
     }
   },
 
   methods: {
-
-    addLike() {
-      this.likes += 1
-    },
-    adddisLike() {
-      this.dislikes += 1
+    createPost(post) {
+      this.posts.push(post)
+    }
     }
 
-  }
 
+    }
 
-
-}
 </script>
 
 
@@ -81,28 +72,13 @@ h1 {
   display: flex;
   column-gap: 10px;
   margin: 0 0 20px 0;
-  p{
+
+  p {
     font-size: 16px;
   }
 }
 
-.btn-app {
-  padding: 5px 10px;
-  font-size: 18px;
-  text-transform: uppercase;
-  min-width: 200px;
-}
 
-.posts{
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  .post{
-    border: 1px solid rgb(117, 12, 179);
-    border-radius: 3px;
-    padding: 5px;
-  }
-}
 
 
 

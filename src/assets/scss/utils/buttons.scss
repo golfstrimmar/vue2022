@@ -1,22 +1,4 @@
-.btn {
-  border: 1px solid transparent;
-  outline: none;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-            
-.btn--success {
-  color: white;
-  border-radius: 10px;
-  background:  #1130e2;
 
-  &:hover {
-    box-shadow: 0 10px 20px rgba(134, 172, 241, 0.5), inset 0 0 15px rgba(255, 255, 255, 1);
-  }
-}
 
 
 /* .btn--success:focus {
