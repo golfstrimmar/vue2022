@@ -7,6 +7,7 @@
 
   <div class="container">
     <h1>posts page</h1>
+    <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton>
 
     <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
     <!-- <div class="buttons">
@@ -35,19 +36,16 @@
 
 import PostForm from "@/components/PostForm.vue";
 import PostList from "@/components/PostList.vue";
-
+import axios from 'axios'
 
 export default {
-  components:{
+  components: {
     PostForm, PostList
   },
   data() {
     return {
       posts: [
-        { id: 0, title: 'post0 title', description: 'post0 descr' },
-        { id: 1, title: 'post1 title', description: 'post1 descr' },
-        { id: 2, title: 'post2 title', description: 'post2 descr' },
-        { id: 3, title: 'post3 title', description: 'post3 descr' },
+      
       ],
       dialogVisible: false
     }
@@ -58,17 +56,25 @@ export default {
       this.posts.push(post);
       this.dialogVisible = false
     },
-    RemovePost(post){
+    RemovePost(post) {
       this.posts = this.posts.filter(p => p.id !== post.id)
     },
-    showDialog(){
+    showDialog() {
       this.dialogVisible = true
+    },
+    async fetchPosts() {
+      try {
+        const responce = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+        this.posts = responce.data
+      } catch {
+        alert('misstake')
+      }
     }
 
-    }
+  }
 
 
-    }
+}
 
 </script>
 
@@ -91,11 +97,7 @@ h1 {
   }
 }
 
-.dialog-open-button{
+.dialog-open-button {
   margin: 20px 0 0 0;
 }
-
-
-
-
 </style>
