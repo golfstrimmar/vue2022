@@ -24,6 +24,19 @@
       <!-- <PostList :posts="posts" @remove="RemovePost"></PostList> ======== watch ========-->
       <!-- <PostList :posts="sortedPosts" @remove="RemovePost"></PostList> ======== computed ======== -->
       <PostList :posts="SortedAndCearchesedPosts" @remove="RemovePost"></PostList>
+      <div class="page-wrapper">
+        <div
+          class="page"
+          v-for="pageNumber in totalPages"
+          :key="pageNumber"
+          :class="{
+            'current-page': page == pageNumber,
+          }"
+          @click="changePage(pageNumber)"
+        >
+          {{ pageNumber }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +61,9 @@ export default {
         { value: "body", name: "for description" },
       ],
       searchQuery: "",
+      page: 1,
+      limit: 10,
+      totalPages: 0,
     };
   },
 
@@ -62,12 +78,20 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    changePage(pageNumber) {
+      this.page = pageNumber;
+      this.fetchPosts();
+    },
     async fetchPosts() {
       try {
-        const responce = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts?_limit=10"
-        );
-        this.posts = responce.data;
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+          params: {
+            _page: this.page,
+            _limit: this.limit,
+          },
+        });
+        this.totalPages = Math.ceil(response.headers["x-total-count"] / this.limit);
+        this.posts = response.data;
       } catch {
         alert("misstake");
       }
@@ -129,5 +153,23 @@ h1 {
 
 .app__body {
   margin: 0 0 50px 0;
+}
+
+.page-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 40px);
+  align-items: center;
+  margin: 15px 0 0 0;
+}
+.page {
+  border: 1px solid rgb(39, 39, 39);
+  min-height: 40px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.current-page {
+  border: 2px solid rgb(39, 39, 39);
+  background: beige;
 }
 </style>
