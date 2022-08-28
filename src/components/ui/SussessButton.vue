@@ -1,18 +1,14 @@
 <template>
-  <button type=" submit" class="btn btn--success " ><slot></slot></button>
+  <button type=" submit" class="btn btn--success"><slot></slot></button>
 </template>
 
 <script>
-
 export default {
-  name: 'SussessButton'
-}
+  name: "SussessButton",
+};
 </script>
 
 <style lang="scss" scoped>
-
-
-
 .btn {
   border: 1px solid transparent;
   outline: none;
@@ -29,16 +25,16 @@ export default {
   background: #1130e24b;
 
   &:hover {
-    box-shadow: 0 10px 20px rgba(134, 172, 241, 0.5), inset 0 0 15px rgba(255, 255, 255, 1);
+    box-shadow: 4px 4px 10px rgba(134, 172, 241, 0.5),
+      inset 0 0 15px rgba(255, 255, 255, 1);
   }
 }
 
-
 button {
   background: rgba(3, 51, 209, 0.664);
-    padding: 5px 10px;
-    font-size: 18px;
-    text-transform: uppercase;
+  padding: 5px 10px;
+  font-size: 18px;
+  text-transform: uppercase;
   svg {
     width: 15px;
     height: 15px;
