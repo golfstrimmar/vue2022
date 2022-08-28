@@ -24,7 +24,8 @@
       <!-- <PostList :posts="posts" @remove="RemovePost"></PostList> ======== watch ========-->
       <!-- <PostList :posts="sortedPosts" @remove="RemovePost"></PostList> ======== computed ======== -->
       <PostList :posts="SortedAndCearchesedPosts" @remove="RemovePost"></PostList>
-      <div class="page-wrapper">
+      <div ref="observer" class="observer"></div>
+      <!-- <div class="page-wrapper">
         <div
           class="page"
           v-for="pageNumber in totalPages"
@@ -36,7 +37,7 @@
         >
           {{ pageNumber }}
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -78,10 +79,10 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
-    changePage(pageNumber) {
-      this.page = pageNumber;
-      this.fetchPosts();
-    },
+    // changePage(pageNumber) {
+    //   this.page = pageNumber;
+    //   this.fetchPosts();
+    // },
     async fetchPosts() {
       try {
         const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
@@ -96,9 +97,35 @@ export default {
         alert("misstake");
       }
     },
+    async loadMorePosts() {
+      this.page += 1;
+      try {
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts", {
+          params: {
+            _page: this.page,
+            _limit: this.limit,
+          },
+        });
+        this.totalPages = Math.ceil(response.headers["x-total-count"] / this.limit);
+        this.posts = [...this.posts, ...response.data];
+      } catch {
+        alert("misstake");
+      }
+    },
   },
   mounted() {
     this.fetchPosts();
+    var options = {
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+    var callback = (entries, observer) => {
+      if (entries[0].isIntersecting && this.page < this.totalPages) {
+        this.loadMorePosts();
+      }
+    };
+    var observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
 
   computed: {
@@ -171,5 +198,7 @@ h1 {
 .current-page {
   border: 2px solid rgb(39, 39, 39);
   background: beige;
+}
+.observer {
 }
 </style>
