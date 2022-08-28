@@ -20,8 +20,8 @@
         <PostForm @create="createPost"></PostForm>
       </CommonDialog>
 
-      <PostList :posts="sortedPosts" @remove="RemovePost"></PostList>
-
+      <!-- <PostList :posts="posts" @remove="RemovePost"></PostList> ======== watch ========-->
+      <PostList :posts="sortedPosts" @remove="RemovePost"></PostList><!--  ======== computed ========-->
     </div>
   </div>
 
