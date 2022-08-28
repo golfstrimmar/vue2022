@@ -20,7 +20,7 @@ export default {
   props: {
     posts: {
       type: Array,
-      reqired: true
+      required: true
     }
   }
 }

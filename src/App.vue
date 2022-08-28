@@ -6,21 +6,23 @@
   <router-view />
 
   <div class="container">
-    <h1>posts page</h1>
-    <!-- <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton> -->
-    <div class="block-buttons">
-      <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
-      <CommonSelect v-model="selectedSort" :options="sortOptions"></CommonSelect>
+    <div class="app__body">
+      <h1>posts page</h1>
+      <!-- <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton> -->
+      <div class="block-buttons">
+        <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
+        <CommonSelect v-model="selectedSort" :options="sortOptions"></CommonSelect>
+      </div>
+
+
+
+      <CommonDialog v-model:show="dialogVisible">
+        <PostForm @create="createPost"></PostForm>
+      </CommonDialog>
+
+      <PostList :posts="sortedPosts" @remove="RemovePost"></PostList>
+
     </div>
-
-
-
-    <CommonDialog v-model:show="dialogVisible">
-      <PostForm @create="createPost"></PostForm>
-    </CommonDialog>
-
-    <PostList :posts="posts" @remove="RemovePost"></PostList>
-
   </div>
 
 
@@ -43,10 +45,10 @@ export default {
     return {
       posts: [],
       dialogVisible: false,
-      selectedSort:'',
+      selectedSort: '',
       sortOptions: [
-        {value: 'title', name: 'for name'},
-        {value: 'body', name: 'for description'}
+        { value: 'title', name: 'for name' },
+        { value: 'body', name: 'for description' }
       ]
     }
   },
@@ -72,9 +74,26 @@ export default {
     }
 
   },
-  mounted(){
+  mounted() {
     this.fetchPosts()
-  }
+  },
+
+  computed: {
+    sortedPosts() {
+      return [...this.posts].sort(
+        (post1, post2) =>  post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+      )
+    }
+  },
+
+  // watch:{
+  //   selectedSort(newValue){
+  //     this.posts.sort((post1,post2) => {
+  //       return post1[newValue]?.localeCompare(post2[newValue])
+  //     })
+  //   }
+  // }
+
 
 
 }
@@ -83,10 +102,11 @@ export default {
 
 
 <style lang="scss">
-.block-buttons{
+.block-buttons {
   display: flex;
   justify-content: space-between;
 }
+
 h1 {
   font-size: 40px;
   text-transform: uppercase;
@@ -106,5 +126,9 @@ h1 {
 
 .dialog-open-button {
   margin: 20px 0 0 0;
+}
+
+.app__body {
+  margin: 0 0 50px 0;
 }
 </style>

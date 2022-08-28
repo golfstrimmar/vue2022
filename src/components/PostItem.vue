@@ -16,7 +16,7 @@ export default {
   },
   props: {
     post: {
-      reqired: true
+      required: true
     }
   }
 }
@@ -27,10 +27,12 @@ export default {
 
 
 
+
+
 .post {
   border: 1px solid rgb(117, 12, 179);
   border-radius: 3px;
-  padding: 5px;
+  padding: 5px 40px 5px 15px;
   position: relative;
 }
 .post__button {

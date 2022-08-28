@@ -1,14 +1,14 @@
 <template>
   <form class="form-posts" @submit.prevent>
     <CommonInput placeholder="post title" v-model.trim="post.title" />
-    <CommonInput placeholder="post description" v-model.trim="post.description" />
+    <CommonInput placeholder="post description" v-model.trim="post.body" />
     <SussessButton @click="createPost">add post</SussessButton>
   </form>
 </template>
 
 <script>
 export default {
-  components:{
+  components: {
   },
   data() {
     return {
@@ -21,7 +21,7 @@ export default {
   methods: {
     createPost() {
       this.post.id = Date.now(),
-      this.$emit('create', this.post)
+        this.$emit('create', this.post)
       this.post = {
         title: '',
         description: ''
@@ -39,6 +39,6 @@ export default {
   grid-template-columns: repeat(2, max-content);
   gap: 10px;
 
- 
+
 }
 </style>
