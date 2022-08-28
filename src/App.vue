@@ -1,4 +1,4 @@
-<template >
+<template>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
@@ -8,82 +8,86 @@
   <div class="container">
     <div class="app__body">
       <h1>posts page</h1>
+      <CommonInput placeholder="search" v-model.trim="searchQuery" />
       <!-- <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton> -->
       <div class="block-buttons">
-        <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
+        <SussessButton @click="showDialog" class="dialog-open-button"
+          >create post</SussessButton
+        >
         <CommonSelect v-model="selectedSort" :options="sortOptions"></CommonSelect>
       </div>
-
-
 
       <CommonDialog v-model:show="dialogVisible">
         <PostForm @create="createPost"></PostForm>
       </CommonDialog>
 
       <!-- <PostList :posts="posts" @remove="RemovePost"></PostList> ======== watch ========-->
-      <PostList :posts="sortedPosts" @remove="RemovePost"></PostList><!--  ======== computed ========-->
+      <!-- <PostList :posts="sortedPosts" @remove="RemovePost"></PostList> ======== computed ======== -->
+      <PostList :posts="SortedAndCearchesedPosts" @remove="RemovePost"></PostList>
     </div>
   </div>
-
-
-
 </template>
 
-
-
 <script>
-
 import PostForm from "@/components/PostForm.vue";
 import PostList from "@/components/PostList.vue";
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   components: {
-    PostForm, PostList
+    PostForm,
+    PostList,
   },
   data() {
     return {
       posts: [],
       dialogVisible: false,
-      selectedSort: '',
+      selectedSort: "",
       sortOptions: [
-        { value: 'title', name: 'for name' },
-        { value: 'body', name: 'for description' }
-      ]
-    }
+        { value: "title", name: "for name" },
+        { value: "body", name: "for description" },
+      ],
+      searchQuery: "",
+    };
   },
 
   methods: {
     createPost(post) {
       this.posts.push(post);
-      this.dialogVisible = false
+      this.dialogVisible = false;
     },
     RemovePost(post) {
-      this.posts = this.posts.filter(p => p.id !== post.id)
+      this.posts = this.posts.filter((p) => p.id !== post.id);
     },
     showDialog() {
-      this.dialogVisible = true
+      this.dialogVisible = true;
     },
     async fetchPosts() {
       try {
-        const responce = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-        this.posts = responce.data
+        const responce = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts?_limit=10"
+        );
+        this.posts = responce.data;
       } catch {
-        alert('misstake')
+        alert("misstake");
       }
-    }
-
+    },
   },
   mounted() {
-    this.fetchPosts()
+    this.fetchPosts();
   },
 
   computed: {
     sortedPosts() {
-      return [...this.posts].sort(
-        (post1, post2) =>  post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
-      )
-    }
+      return [...this.posts].sort((post1, post2) =>
+        post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+      );
+    },
+    SortedAndCearchesedPosts() {
+      return this.sortedPosts.filter((post) =>
+        post.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
   },
 
   // watch:{
@@ -93,13 +97,8 @@ export default {
   //     })
   //   }
   // }
-
-
-
-}
-
+};
 </script>
-
 
 <style lang="scss">
 .block-buttons {
@@ -111,7 +110,7 @@ h1 {
   font-size: 40px;
   text-transform: uppercase;
   font-weight: 700;
-  font-family: 'DrukCyr', serif;
+  font-family: "DrukCyr", serif;
 }
 
 .buttons {
