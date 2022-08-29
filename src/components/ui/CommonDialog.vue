@@ -7,26 +7,21 @@
 </template>
 
 <script>
+import toggleMixin from '@/mixins/toggleMixin';
+
 export default {
   name: 'CommonDialog',
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    }
+  mixins: [
+    toggleMixin
+  ]
+  , mounted() {
+    console.log(' mounted');
   },
-  methods:{
-    hideDialog(){
-      this.$emit('update:show', false)
-    }
-  }
-
 }
 </script>
 
 <style lang="scss" scoped>
-
-.common-dialog{
+.common-dialog {
   position: fixed;
   min-height: 100vh;
   width: 100vw;
@@ -37,11 +32,13 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  &__content{
+
+  &__content {
     background: white;
     border-radius: 15px;
     min-width: 5px;
-    min-height: 5px;padding: 40px;
+    min-height: 5px;
+    padding: 40px;
 
   }
 }
