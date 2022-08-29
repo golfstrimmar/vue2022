@@ -5,9 +5,7 @@
       <CommonInput placeholder="search" v-model.trim="searchQuery" />
       <!-- <SussessButton @click="fetchPosts" class="dialog-open-button">resive post</SussessButton> -->
       <div class="block-buttons">
-        <SussessButton @click="showDialog" class="dialog-open-button"
-          >create post</SussessButton
-        >
+        <SussessButton @click="showDialog" class="dialog-open-button">create post</SussessButton>
         <CommonSelect v-model="selectedSort" :options="sortOptions"></CommonSelect>
       </div>
 
@@ -18,7 +16,7 @@
       <!-- <PostList :posts="posts" @remove="RemovePost"></PostList> ======== watch ========-->
       <!-- <PostList :posts="sortedPosts" @remove="RemovePost"></PostList> ======== computed ======== -->
       <PostList :posts="SortedAndCearchesedPosts" @remove="RemovePost"></PostList>
-      <div ref="observer" class="observer"></div>
+      <div v-intersection="loadMorePosts" class="observer"></div>
       <!-- <div class="page-wrapper">
         <div
           class="page"
@@ -109,17 +107,17 @@ export default {
   },
   mounted() {
     this.fetchPosts();
-    var options = {
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-    var callback = (entries, observer) => {
-      if (entries[0].isIntersecting && this.page < this.totalPages) {
-        this.loadMorePosts();
-      }
-    };
-    var observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
+    // var options = {
+    //   rootMargin: "0px",
+    //   threshold: 1.0,
+    // };
+    // var callback = (entries, observer) => {
+    //   if (entries[0].isIntersecting && this.page < this.totalPages) {
+    //     this.loadMorePosts();
+    //   }
+    // };
+    // var observer = new IntersectionObserver(callback, options);
+    // observer.observe(this.$refs.observer);
   },
 
   computed: {
