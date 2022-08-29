@@ -4,7 +4,7 @@ import "@/assets/scss/index.scss";
 import components from '@/components/ui/index';
 import router from "@/router/index";
 import directives from './directives';
-
+import store from './store/index'
 const app = createApp(App);
 
 components.forEach((component) => {
@@ -14,4 +14,4 @@ components.forEach((component) => {
 directives.forEach(directive=>{
   app.directive(directive.name, directive);
 })
-app.use(router).mount("#app");
+app.use(router).use(store).mount("#app");

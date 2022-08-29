@@ -10,6 +10,7 @@
           <SussessButton @click="$router.push('/')">Home</SussessButton>
           <SussessButton @click="$router.push('/posts')">Posts</SussessButton>
           <SussessButton @click="$router.push('/about')">About</SussessButton>
+          <SussessButton @click="$router.push('/store')">Store</SussessButton>
         </div>
       </div>
     </div>
