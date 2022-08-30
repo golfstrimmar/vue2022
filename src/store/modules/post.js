@@ -14,6 +14,9 @@ export default {
     updatePosts(state, posts) {
       state.posts = posts;
     },
+    createPost(state, newPost) {
+      state.posts.unshift(newPost);
+    },
   },
   actions: {
     async fetchPosts(ctx, limit = 3) {
