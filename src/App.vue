@@ -16,7 +16,7 @@ export default {
   computed: mapGetters(['allPosts']),
    mounted() {
     // this.$store.dispatch('fetchPosts')
-     this.fetchPosts()
+     this.fetchPosts(4)
   },
 }
 </script>
