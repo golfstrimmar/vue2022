@@ -1,36 +1,27 @@
 <template>
   <div class="home">
     <div class="post" v-for="post in allPosts" :key="post.id">
-      <h2>{{post.title}}</h2>
-      <p>{{post.body}}</p>
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.body }}</p>
     </div>
   </div>
 </template>
 
 <script>
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'app',
-  data(){
-    return{ posts: [] } 
-    
-  },
-  async mounted(){
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=3');
-    const posts =await res.json();
-    this.posts = posts;
-  }, 
-  computed:{
-allPosts(){
-  return this.$store.getters.allPosts
-}
-  }
+  methods: mapActions(['fetchPosts']),
  
+  computed: mapGetters(['allPosts']),
+   mounted() {
+    // this.$store.dispatch('fetchPosts')
+     this.fetchPosts()
+  },
 }
 </script>
 
 <style>
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -51,6 +42,7 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
 .post {
   border: 1px solid grey;
 }
