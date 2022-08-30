@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-  <PostForm></PostForm>
+    <PostForm></PostForm>
     <h3>posts count: {{postsCount}}</h3>
-    <div class="post" v-for="post in allPosts" :key="post.id">
+    <div class="post" v-for="post in validPosts" :key="post.id">
       <h2>{{ post.title }}</h2>
       <p>{{ post.body }}</p>
     </div>
@@ -19,7 +19,7 @@ export default {
  components:{
    PostForm
  },
-  computed: mapGetters(['allPosts', 'postsCount']),
+  computed: mapGetters(['validPosts', 'postsCount']),
    mounted() {
     // this.$store.dispatch('fetchPosts')
      this.fetchPosts(4)

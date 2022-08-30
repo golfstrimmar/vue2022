@@ -9,6 +9,11 @@ export default {
     postsCount(state) {
       return state.posts.length;
     },
+    validPosts(state) {
+      return state.posts.filter(p=>{
+        return p.title && p.body
+      })
+    },
   },
   mutations: {
     updatePosts(state, posts) {
