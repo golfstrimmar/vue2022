@@ -1,12 +1,31 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="home">
+    <div class="post" v-for="post in posts" :key="post.id">
+      <h2>{{post.title}}</h2>
+      <p>{{post.body}}</p>
+    </div>
+  </div>
 </template>
 
+<script>
+
+export default {
+  name: 'app',
+  data(){
+    return{ posts: [] } 
+    
+  },
+  async mounted(){
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=3');
+    const posts =await res.json();
+    this.posts = posts;
+  }
+ 
+}
+</script>
+
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,5 +45,8 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+.post {
+  border: 1px solid grey;
 }
 </style>
