@@ -6,6 +6,9 @@ export default {
     allPosts(state) {
       return state.posts;
     },
+    postsCount(state) {
+      return state.posts.length;
+    },
   },
   mutations: {
     updatePosts(state, posts) {
@@ -13,7 +16,7 @@ export default {
     },
   },
   actions: {
-    async fetchPosts(ctx, limit=3) {
+    async fetchPosts(ctx, limit = 3) {
       const res = await fetch(
         "https://jsonplaceholder.typicode.com/posts?_limit=" + limit
       );
@@ -21,6 +24,5 @@ export default {
       this.posts = posts;
       ctx.commit("updatePosts", posts);
     },
-    
   },
 };
